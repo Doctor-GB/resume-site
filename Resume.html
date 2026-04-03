@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Моё резюме</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #222;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      background: #ffffff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+      animation: fadeIn 0.8s ease;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      padding: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header h1 { margin: 0; font-size: 26px; }
+
+    .header a {
+      color: #e0e7ff;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .content { padding: 30px; }
+
+    form {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    input, textarea, select {
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.2);
+    }
+
+    button {
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 15px;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    }
+
+    .resume {
+      border-top: 1px solid #eee;
+      padding-top: 30px;
+      display: none;
+    }
+
+    .top-block {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 20px;
+      animation: slideUp 0.6s ease;
+    }
+
+    .photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 16px;
+      background: #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .resume h2 { margin: 0; }
+
+    .sub {
+      color: #666;
+      margin-top: 5px;
+    }
+
+    .section {
+      margin-bottom: 25px;
+      padding: 15px;
+      border-radius: 12px;
+      background: #f9fafb;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    .section:nth-child(1) { animation-delay: 0.2s; }
+    .section:nth-child(2) { animation-delay: 0.4s; }
+    .section:nth-child(3) { animation-delay: 0.6s; }
+    .section:nth-child(4) { animation-delay: 0.8s; }
+    .section:nth-child(5) { animation-delay: 1s; }
+
+    .section h3 {
+      margin-bottom: 8px;
+      color: #6366f1;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    @media (max-width: 700px) {
+      .grid { grid-template-columns: 1fr; }
+      .top-block { flex-direction: column; align-items: flex-start; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>Моё резюме</h1>
+    <a href="https://github.com/Doctor-GB" target="_blank">GitHub</a>
+  </div>
+
+  <div class="content">
+
+    <form id="resumeForm">
+      <input type="file" id="photoInput" accept="image/*">
+
+      <div class="grid">
+        <input type="text" placeholder="Фамилия" id="lastName" required>
+        <input type="text" placeholder="Имя" id="firstName" required>
+        <input type="text" placeholder="Отчество" id="middleName">
+        <input type="tel" placeholder="Телефон" id="phone">
+        <input type="email" placeholder="Email" id="email">
+        <input type="text" placeholder="Должность" id="position">
+      </div>
+
+      <div class="grid">
+        <input type="number" placeholder="Желаемая зарплата" id="salary">
+        <select id="currency">
+          <option value="RUB">₽</option>
+          <option value="USD">$</option>
+          <option value="EUR">€</option>
+        </select>
+      </div>
+
+      <input type="text" placeholder="График работы" id="schedule">
+      <textarea placeholder="О себе" id="about"></textarea>
+      <textarea placeholder="Образование" id="education"></textarea>
+      <textarea placeholder="Опыт работы" id="experience"></textarea>
+
+      <button type="submit">Сформировать резюме</button>
+    </form>
+
+    <div class="resume" id="resumeOutput">
+
+      <div class="top-block">
+        <div class="photo" id="photoPreview">Фото</div>
+        <div>
+          <h2 id="fullName"></h2>
+          <div class="sub" id="outPosition"></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Контакты</h3>
+        <div id="outPhone"></div>
+        <div id="outEmail"></div>
+      </div>
+
+      <div class="section">
+        <h3>Зарплата и график</h3>
+        <div id="outSalary"></div>
+        <div id="outSchedule"></div>
+      </div>
+
+      <div class="section">
+        <h3>О себе</h3>
+        <div id="outAbout"></div>
+      </div>
+
+      <div class="section">
+        <h3>Образование</h3>
+        <div id="outEducation"></div>
+      </div>
+
+      <div class="section">
+        <h3>Опыт работы</h3>
+        <div id="outExperience"></div>
+      </div>
+
+      <div class="section">
+        <h3>GitHub</h3>
+        <a href="https://github.com/Doctor-GB" target="_blank">github.com/Doctor-GB</a>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const photoInput = document.getElementById('photoInput');
+  const photoPreview = document.getElementById('photoPreview');
+
+  photoInput.addEventListener('change', function() {
+    const file = this.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        photoPreview.innerHTML = `<img src="${e.target.result}" />`;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  document.getElementById('resumeForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const fullName = `${lastName.value} ${firstName.value} ${middleName.value}`;
+
+    document.getElementById('fullName').innerText = fullName;
+    document.getElementById('outPhone').innerText = phone.value;
+    document.getElementById('outEmail').innerText = email.value;
+    document.getElementById('outPosition').innerText = position.value;
+
+    const salaryText = salary.value ? salary.value + ' ' + currency.value : '';
+    document.getElementById('outSalary').innerText = salaryText;
+
+    document.getElementById('outSchedule').innerText = schedule.value;
+    document.getElementById('outAbout').innerText = about.value;
+    document.getElementById('outEducation').innerText = education.value;
+    document.getElementById('outExperience').innerText = experience.value;
+
+    document.getElementById('resumeOutput').style.display = 'block';
+  });
+</script>
+
+</body>
+</html>
